@@ -6,29 +6,81 @@ using System.Web.Http;
 using Microsoft.EntityFrameworkCore;
 using ChiroApp.Models;
 using ChiroDataAccess;
-using System.Web.UI.WebControls;
+using System.Web.UI.WebControls; 
 
 namespace ChiroApp.Controllers
 {
-    
+    [Authorize]
     public class LoginController : ApiController
     {
-        [HttpGet]
+        ChiroAppEntities db = new ChiroAppEntities();
 
-        public IEnumerable<PersonDetails> Get()
+        
+        [HttpGet]
+        [Route("GetAllUsers")]
+        public IEnumerable<PersonDetails> GetAllUsers()
         {
-            using(ChiroAppEntities entities = new ChiroAppEntities())
-            {
-                return entities.PersonDetails.ToList();
-            }
+                return db.PersonDetails.ToList();
         }
 
-        public PersonDetails Get(int id)
+
+        [Route("Login")]
+        public void Login(int id)
         {
-            using(ChiroAppEntities entities = new ChiroAppEntities())
+            //check if id is 5 digit or 10 digit. 
+            //if 5 digits then do below
+            // lookup userid in user table get matching phone number send OTP - if userid not found then through id not found error.
+            // else if 10 digits then lookup phone number in user table and sent otp - if userid not found then through id not found error.
+            // else through id not found error.
+
+ 
+        }
+
+        [Route("Login")]
+        public void VerifyOTP(string code, int id)
+        {
+         //verify otp and return success/failed
+        }
+
+        [Route("GetPatient")]
+        public PersonDetails GetPatient(int id)
+        {
+             
+
+                return db.PersonDetails.Where(i => i.PatientId == id).FirstOrDefault();
+        }
+
+        [Route("GetPhysician")]
+        public PersonDetails GetPhysician(int id)
+        {
+
+
+            return db.PersonDetails.Where(i => i.PatientId == id).FirstOrDefault();
+        }
+
+        [Route("GetNurse")]
+        public IHttpActionResult GetNurse(int id)
+        {
+            //PersonDetails pa = new PersonDetails();
+
+            //pa.LastName = lastName;
+            //pa.FirstName= lastName;
+            //pa.City = "";
+
+            //db.PersonDetails.Add(pa);
+
+            //return Ok(pa.PatientId);
+
+            try
             {
-                return entities.PersonDetails.FirstOrDefault();
+                return Ok(db.PersonDetails.Where(i => i.PatientId == id).FirstOrDefault());
             }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+
+
         }
     }
 }
