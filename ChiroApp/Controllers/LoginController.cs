@@ -14,9 +14,21 @@ namespace ChiroApp.Controllers
     public class LoginController : ApiController
     {
         [HttpGet]
-        public async Task<Action<IEnumerable<PersonDetails>>> GetPersonDetails()
+
+        public IEnumerable<PersonDetails> Get()
         {
-            return await ChiroDataAccess.PersonDetails.;
+            using(ChiroAppEntities entities = new ChiroAppEntities())
+            {
+                return entities.PersonDetails.ToList();
+            }
+        }
+
+        public PersonDetails Get(int id)
+        {
+            using(ChiroAppEntities entities = new ChiroAppEntities())
+            {
+                return entities.PersonDetails.FirstOrDefault();
+            }
         }
     }
 }
