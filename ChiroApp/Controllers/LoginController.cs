@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
-using Microsoft.EntityFrameworkCore;
 using ChiroApp.Models;
 using ChiroDataAccess;
 using System.Web.UI.WebControls; 
@@ -18,9 +17,9 @@ namespace ChiroApp.Controllers
         
         [HttpGet]
         [Route("GetAllUsers")]
-        public IEnumerable<PersonDetails> GetAllUsers()
+        public IEnumerable<Patients> GetAllUsers()
         {
-                return db.PersonDetails.ToList();
+                return db.Patients.ToList();
         }
 
 
@@ -43,19 +42,19 @@ namespace ChiroApp.Controllers
         }
 
         [Route("GetPatient")]
-        public PersonDetails GetPatient(int id)
+        public Patients GetPatient(int id)
         {
              
 
-                return db.PersonDetails.Where(i => i.PatientId == id).FirstOrDefault();
+                return db.Patients.Where(i => i.PatientId == id).FirstOrDefault();
         }
 
         [Route("GetPhysician")]
-        public PersonDetails GetPhysician(int id)
+        public Patients GetPhysician(int id)
         {
 
 
-            return db.PersonDetails.Where(i => i.PatientId == id).FirstOrDefault();
+            return db.Patients.Where(i => i.PatientId == id).FirstOrDefault();
         }
 
         [Route("GetNurse")]
@@ -73,7 +72,7 @@ namespace ChiroApp.Controllers
 
             try
             {
-                return Ok(db.PersonDetails.Where(i => i.PatientId == id).FirstOrDefault());
+                return Ok(db.Patients.Where(i => i.PatientId == id).FirstOrDefault());
             }
             catch(Exception ex)
             {

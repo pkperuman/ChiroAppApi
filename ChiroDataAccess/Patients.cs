@@ -12,7 +12,7 @@ namespace ChiroDataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class PersonDetails
+    public partial class Patients
     {
         public int PatientId { get; set; }
         public string FirstName { get; set; }
