@@ -12,11 +12,15 @@ namespace ChiroDataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class Users
     {
         public string ID { get; set; }
         public int UserID { get; set; }
-        public int Role { get; set; }
+        public int RoleID { get; set; }
         public string PhoneNumber { get; set; }
+        public string CreatedBy { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public string UpdatedBy { get; set; }
+        public Nullable<System.DateTime> UpdatedDate { get; set; }
     }
 }

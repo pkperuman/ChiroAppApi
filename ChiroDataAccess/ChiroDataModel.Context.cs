@@ -12,6 +12,8 @@ namespace ChiroDataAccess
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class ChiroAppEntities : DbContext
     {
@@ -27,6 +29,27 @@ namespace ChiroDataAccess
     
         public virtual DbSet<Patients> Patients { get; set; }
         public virtual DbSet<Role> Role { get; set; }
-        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
+    
+        public virtual ObjectResult<AddUser_Result> AddUser(Nullable<int> patient_ID, string phonenumber, Nullable<int> role_ID, Nullable<int> user_Id)
+        {
+            var patient_IDParameter = patient_ID.HasValue ?
+                new ObjectParameter("Patient_ID", patient_ID) :
+                new ObjectParameter("Patient_ID", typeof(int));
+    
+            var phonenumberParameter = phonenumber != null ?
+                new ObjectParameter("Phonenumber", phonenumber) :
+                new ObjectParameter("Phonenumber", typeof(string));
+    
+            var role_IDParameter = role_ID.HasValue ?
+                new ObjectParameter("Role_ID", role_ID) :
+                new ObjectParameter("Role_ID", typeof(int));
+    
+            var user_IdParameter = user_Id.HasValue ?
+                new ObjectParameter("User_Id", user_Id) :
+                new ObjectParameter("User_Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AddUser_Result>("AddUser", patient_IDParameter, phonenumberParameter, role_IDParameter, user_IdParameter);
+        }
     }
 }

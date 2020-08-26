@@ -80,6 +80,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddUser_Result.cs">
+      <DependentUpon>ChiroDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ChiroDataModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -102,7 +105,7 @@
     <Compile Include="Role.cs">
       <DependentUpon>ChiroDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="User.cs">
+    <Compile Include="Users.cs">
       <DependentUpon>ChiroDataModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
