@@ -5,11 +5,14 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using ChiroApp.Models;
 using ChiroDataAccess;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 using System.Web.UI.WebControls; 
 
 namespace ChiroApp.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class LoginController : ApiController
     {
         ChiroAppEntities db = new ChiroAppEntities();
@@ -31,6 +34,13 @@ namespace ChiroApp.Controllers
             // lookup userid in user table get matching phone number send OTP - if userid not found then through id not found error.
             // else if 10 digits then lookup phone number in user table and sent otp - if userid not found then through id not found error.
             // else through id not found error.
+            Patients p = new Patients();
+
+            if(p.PatientId==5 || p.PhoneNumber.Length==10)
+            {
+                
+
+            }
 
  
         }
@@ -60,15 +70,7 @@ namespace ChiroApp.Controllers
         [Route("GetNurse")]
         public IHttpActionResult GetNurse(int id)
         {
-            //PersonDetails pa = new PersonDetails();
-
-            //pa.LastName = lastName;
-            //pa.FirstName= lastName;
-            //pa.City = "";
-
-            //db.PersonDetails.Add(pa);
-
-            //return Ok(pa.PatientId);
+            
 
             try
             {

@@ -41,9 +41,7 @@ namespace ChiroApp.Controllers
         {
             db.AddUser(u.flag,u.Patient_ID,u.PhoneNumber,u.UserID,u.RoleID);
             db.SaveChanges();
-            return Ok(u.UserID);
-
-
+            return Ok();
 
         }
     }

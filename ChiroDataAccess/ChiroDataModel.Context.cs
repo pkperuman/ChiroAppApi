@@ -27,9 +27,9 @@ namespace ChiroDataAccess
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Patients> Patients { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Patients> Patients { get; set; }
     
         public virtual ObjectResult<AddUser_Result> AddUser(string flag, Nullable<int> patient_ID, string phonenumber, Nullable<int> role_ID, Nullable<int> user_Id)
         {
