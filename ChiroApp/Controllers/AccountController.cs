@@ -19,7 +19,7 @@ using ChiroApp.Results;
 
 namespace ChiroApp.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
