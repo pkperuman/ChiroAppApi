@@ -115,15 +115,7 @@ namespace ChiroApp.Controllers
         [Route("GetNurse")]
         public IHttpActionResult GetNurse(int id)
         {
-            //PersonDetails pa = new PersonDetails();
-
-            //pa.LastName = lastName;
-            //pa.FirstName= lastName;
-            //pa.City = "";
-
-            //db.PersonDetails.Add(pa);
-
-            //return Ok(pa.PatientId);
+            
 
             try
             {
