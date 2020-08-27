@@ -31,8 +31,12 @@ namespace ChiroDataAccess
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Users> Users { get; set; }
     
-        public virtual ObjectResult<AddUser_Result> AddUser(Nullable<int> patient_ID, string phonenumber, Nullable<int> role_ID, Nullable<int> user_Id)
+        public virtual ObjectResult<AddUser_Result> AddUser(string flag, Nullable<int> patient_ID, string phonenumber, Nullable<int> role_ID, Nullable<int> user_Id)
         {
+            var flagParameter = flag != null ?
+                new ObjectParameter("flag", flag) :
+                new ObjectParameter("flag", typeof(string));
+    
             var patient_IDParameter = patient_ID.HasValue ?
                 new ObjectParameter("Patient_ID", patient_ID) :
                 new ObjectParameter("Patient_ID", typeof(int));
@@ -49,7 +53,7 @@ namespace ChiroDataAccess
                 new ObjectParameter("User_Id", user_Id) :
                 new ObjectParameter("User_Id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AddUser_Result>("AddUser", patient_IDParameter, phonenumberParameter, role_IDParameter, user_IdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AddUser_Result>("AddUser", flagParameter, patient_IDParameter, phonenumberParameter, role_IDParameter, user_IdParameter);
         }
     }
 }

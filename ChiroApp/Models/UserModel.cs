@@ -7,12 +7,12 @@ namespace ChiroApp.Models
 {
     public class UserModel
     {
-        public string ID { get; set; }
+
+        public string @flag { get; set; }
+        public int Patient_ID { get; set; }
+        public string PhoneNumber { get; set; }
         public int UserID { get; set; }
         public int RoleID { get; set; }
-        public string PhoneNumber { get; set; }
-
-        public int patientid { get; set; }
        
       
         

@@ -50,6 +50,7 @@
           <Property Name="UpdatedDate" Type="date" />
         </EntityType>
         <Function Name="AddUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="flag" Type="varchar" Mode="In" />
           <Parameter Name="Patient_ID" Type="int" Mode="In" />
           <Parameter Name="Phonenumber" Type="varchar" Mode="In" />
           <Parameter Name="Role_ID" Type="int" Mode="In" />
@@ -69,6 +70,7 @@
           <EntitySet Name="Role" EntityType="DB_A5495D_ChiroAppModel.Role" />
           <EntitySet Name="Users" EntityType="DB_A5495D_ChiroAppModel.Users" />
           <FunctionImport Name="AddUser" ReturnType="Collection(DB_A5495D_ChiroAppModel.AddUser_Result)">
+            <Parameter Name="flag" Mode="In" Type="String" />
             <Parameter Name="Patient_ID" Mode="In" Type="Int32" />
             <Parameter Name="Phonenumber" Mode="In" Type="String" />
             <Parameter Name="Role_ID" Mode="In" Type="Int32" />

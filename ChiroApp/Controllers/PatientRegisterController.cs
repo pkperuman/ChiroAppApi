@@ -14,7 +14,7 @@ namespace ChiroApp.Controllers
         ChiroAppEntities db = new ChiroAppEntities();
 
         [Route("NewPatient")]
-        public IHttpActionResult PostNewPatient(int id,string firstname,string middlename,string lastname,string phonenumber,string email,string city,string state,string zip,byte[] image,bool phonenumberverify)
+        public IHttpActionResult PostNewPatient(int id, string firstname, string middlename, string lastname, string phonenumber, string email, string city, string state, string zip, byte[] image, bool phonenumberverify)
         {
             Patients pa = new Patients();
 
@@ -28,7 +28,7 @@ namespace ChiroApp.Controllers
             pa.Zip = zip;
             pa.Image = image;
             pa.PhoneNumberVerify = phonenumberverify;
-            
+
 
             db.Patients.Add(pa);
 
@@ -39,11 +39,12 @@ namespace ChiroApp.Controllers
         [Route("NewUser")]
         public IHttpActionResult PostAddUser(UserModel u)
         {
-            db.AddUser(u.UserID, u.PhoneNumber, u.RoleID, u.patientid);
+            db.AddUser(u.flag,u.Patient_ID,u.PhoneNumber,u.UserID,u.RoleID);
             db.SaveChanges();
-            return Ok(u.ID);
+            return Ok(u.UserID);
 
 
 
         }
+    }
 }
