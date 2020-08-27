@@ -18,30 +18,28 @@ namespace ChiroApp.Controllers
         {
             Patients pa = new Patients();
 
-            pa.FirstName = firstname;
-            pa.MiddleName = middlename;
-            pa.LastName = lastname;
-            pa.PhoneNumber = phonenumber;
-            pa.Email = email;
-            pa.City = city;
-            pa.State = state;
-            pa.Zip = zip;
-            pa.Image = image;
-            pa.PhoneNumberVerify = phonenumberverify;
+            try
+            {
+                pa.FirstName = firstname;
+                pa.MiddleName = middlename;
+                pa.LastName = lastname;
+                pa.PhoneNumber = phonenumber;
+                pa.Email = email;
+                pa.City = city;
+                pa.State = state;
+                pa.Zip = zip;
+                pa.Image = image;
+
+                db.Patients.Add(pa);
+
+                return Ok(pa.PatientId);
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
 
 
-            db.Patients.Add(pa);
-
-            return Ok(pa.PatientId);
-        }
-
-
-        [Route("NewUser")]
-        public IHttpActionResult PostAddUser(UserModel u)
-        {
-            db.AddUser(u.flag,u.Patient_ID,u.PhoneNumber,u.UserID,u.RoleID);
-            db.SaveChanges();
-            return Ok();
 
         }
     }
