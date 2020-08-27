@@ -10,9 +10,8 @@
 namespace ChiroDataAccess
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Patients
+    public partial class AddUser_Result
     {
         public int PatientId { get; set; }
         public string FirstName { get; set; }
@@ -29,5 +28,21 @@ namespace ChiroDataAccess
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
+        public string ID { get; set; }
+        public Nullable<int> UserID { get; set; }
+        public Nullable<int> RoleID { get; set; }
+        public string PhoneNumber1 { get; set; }
+        public string CreatedBy1 { get; set; }
+        public Nullable<System.DateTime> CreatedDate1 { get; set; }
+        public string UpdatedBy1 { get; set; }
+        public Nullable<System.DateTime> UpdatedDate1 { get; set; }
+        public Nullable<int> RoleID1 { get; set; }
+        public string RoleName { get; set; }
+        public string CreatedBy2 { get; set; }
+        public Nullable<System.DateTime> CreatedDate2 { get; set; }
+        public string UpdatedBy2 { get; set; }
+        public Nullable<System.DateTime> UpdatedDate2 { get; set; }
+        public Nullable<int> RoleID2 { get; set; }
+        public string RoleName1 { get; set; }
     }
 }

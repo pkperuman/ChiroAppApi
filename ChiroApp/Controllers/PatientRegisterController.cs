@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using ChiroDataAccess;
+using ChiroApp.Models;
 
 namespace ChiroApp.Controllers
 {
@@ -13,7 +14,7 @@ namespace ChiroApp.Controllers
         ChiroAppEntities db = new ChiroAppEntities();
 
         [Route("NewPatient")]
-        public IHttpActionResult PostNewPatient(int id,string firstname,string middlename,string lastname,string phonenumber,string email,string city,string state,string zip,byte[] image)
+        public IHttpActionResult PostNewPatient(int id, string firstname, string middlename, string lastname, string phonenumber, string email, string city, string state, string zip, byte[] image, bool phonenumberverify)
         {
             Patients pa = new Patients();
 

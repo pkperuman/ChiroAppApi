@@ -19,27 +19,47 @@
           <Property Name="State" Type="varchar" MaxLength="50" />
           <Property Name="Zip" Type="varchar" MaxLength="50" />
           <Property Name="Image" Type="image" />
+          <Property Name="PhoneNumberVerify" Type="bit" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="UpdatedDate" Type="date" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="RoleID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
           <Property Name="RoleName" Type="varchar" MaxLength="20" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="UpdatedDate" Type="date" />
         </EntityType>
-        <EntityType Name="User">
+        <EntityType Name="Users">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
-          <Property Name="Role" Type="int" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
           <Property Name="PhoneNumber" Type="varchar" MaxLength="12" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="128" />
+          <Property Name="UpdatedDate" Type="date" />
         </EntityType>
+        <Function Name="AddUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="flag" Type="varchar" Mode="In" />
+          <Parameter Name="Patient_ID" Type="int" Mode="In" />
+          <Parameter Name="Phonenumber" Type="varchar" Mode="In" />
+          <Parameter Name="Role_ID" Type="int" Mode="In" />
+          <Parameter Name="User_Id" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="DB_A5495D_ChiroAppModelStoreContainer">
           <EntitySet Name="Patients" EntityType="Self.Patients" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -48,7 +68,14 @@
         <EntityContainer Name="ChiroAppEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Patients" EntityType="DB_A5495D_ChiroAppModel.Patients" />
           <EntitySet Name="Role" EntityType="DB_A5495D_ChiroAppModel.Role" />
-          <EntitySet Name="User" EntityType="DB_A5495D_ChiroAppModel.User" />
+          <EntitySet Name="Users" EntityType="DB_A5495D_ChiroAppModel.Users" />
+          <FunctionImport Name="AddUser" ReturnType="Collection(DB_A5495D_ChiroAppModel.AddUser_Result)">
+            <Parameter Name="flag" Mode="In" Type="String" />
+            <Parameter Name="Patient_ID" Mode="In" Type="Int32" />
+            <Parameter Name="Phonenumber" Mode="In" Type="String" />
+            <Parameter Name="Role_ID" Mode="In" Type="Int32" />
+            <Parameter Name="User_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="Patients">
           <Key>
@@ -64,23 +91,69 @@
           <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Zip" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="PhoneNumberVerify" Type="Boolean" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="RoleID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
           <Property Name="RoleName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
         </EntityType>
-        <EntityType Name="User">
+        <EntityType Name="Users">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="Role" Type="Int32" Nullable="false" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
         </EntityType>
+        <ComplexType Name="AddUser_Result">
+          <Property Type="Int32" Name="PatientId" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MiddleName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="State" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Zip" Nullable="true" MaxLength="50" />
+          <Property Type="Binary" Name="Image" Nullable="true" MaxLength="Max" />
+          <Property Type="Boolean" Name="PhoneNumberVerify" Nullable="true" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="128" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" />
+          <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="128" />
+          <Property Type="DateTime" Name="UpdatedDate" Nullable="true" />
+          <Property Type="String" Name="ID" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="UserID" Nullable="true" />
+          <Property Type="Int32" Name="RoleID" Nullable="true" />
+          <Property Type="String" Name="PhoneNumber1" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="CreatedBy1" Nullable="true" MaxLength="128" />
+          <Property Type="DateTime" Name="CreatedDate1" Nullable="true" />
+          <Property Type="String" Name="UpdatedBy1" Nullable="true" MaxLength="128" />
+          <Property Type="DateTime" Name="UpdatedDate1" Nullable="true" />
+          <Property Type="Int32" Name="RoleID1" Nullable="true" />
+          <Property Type="String" Name="RoleName" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="CreatedBy2" Nullable="true" MaxLength="128" />
+          <Property Type="DateTime" Name="CreatedDate2" Nullable="true" />
+          <Property Type="String" Name="UpdatedBy2" Nullable="true" MaxLength="128" />
+          <Property Type="DateTime" Name="UpdatedDate2" Nullable="true" />
+          <Property Type="Int32" Name="RoleID2" Nullable="true" />
+          <Property Type="String" Name="RoleName1" Nullable="true" MaxLength="20" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -90,6 +163,11 @@
         <EntitySetMapping Name="Patients">
             <EntityTypeMapping TypeName="DB_A5495D_ChiroAppModel.Patients">
               <MappingFragment StoreEntitySet="Patients">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="PhoneNumberVerify" ColumnName="PhoneNumberVerify" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="Zip" ColumnName="Zip" />
                 <ScalarProperty Name="State" ColumnName="State" />
@@ -106,21 +184,66 @@
           <EntitySetMapping Name="Role">
             <EntityTypeMapping TypeName="DB_A5495D_ChiroAppModel.Role">
               <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="DB_A5495D_ChiroAppModel.User">
-              <MappingFragment StoreEntitySet="User">
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DB_A5495D_ChiroAppModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AddUser" FunctionName="DB_A5495D_ChiroAppModel.Store.AddUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_A5495D_ChiroAppModel.AddUser_Result">
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="PhoneNumberVerify" ColumnName="PhoneNumberVerify" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="PhoneNumber1" ColumnName="PhoneNumber1" />
+                <ScalarProperty Name="CreatedBy1" ColumnName="CreatedBy1" />
+                <ScalarProperty Name="CreatedDate1" ColumnName="CreatedDate1" />
+                <ScalarProperty Name="UpdatedBy1" ColumnName="UpdatedBy1" />
+                <ScalarProperty Name="UpdatedDate1" ColumnName="UpdatedDate1" />
+                <ScalarProperty Name="RoleID1" ColumnName="RoleID1" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="CreatedBy2" ColumnName="CreatedBy2" />
+                <ScalarProperty Name="CreatedDate2" ColumnName="CreatedDate2" />
+                <ScalarProperty Name="UpdatedBy2" ColumnName="UpdatedBy2" />
+                <ScalarProperty Name="UpdatedDate2" ColumnName="UpdatedDate2" />
+                <ScalarProperty Name="RoleID2" ColumnName="RoleID2" />
+                <ScalarProperty Name="RoleName1" ColumnName="RoleName1" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
