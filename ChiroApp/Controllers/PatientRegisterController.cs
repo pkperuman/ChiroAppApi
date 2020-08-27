@@ -17,19 +17,26 @@ namespace ChiroApp.Controllers
         {
             Patients pa = new Patients();
 
-            pa.FirstName = firstname;
-            pa.MiddleName = middlename;
-            pa.LastName = lastname;
-            pa.PhoneNumber = phonenumber;
-            pa.Email = email;
-            pa.City = city;
-            pa.State = state;
-            pa.Zip = zip;
-            pa.Image = image;
+            try
+            {
+                pa.FirstName = firstname;
+                pa.MiddleName = middlename;
+                pa.LastName = lastname;
+                pa.PhoneNumber = phonenumber;
+                pa.Email = email;
+                pa.City = city;
+                pa.State = state;
+                pa.Zip = zip;
+                pa.Image = image;
 
-            db.Patients.Add(pa);
+                db.Patients.Add(pa);
 
-            return Ok(pa.PatientId);
+                return Ok(pa.PatientId);
+            }
+            catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
 
 
 
